@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+
 
 class TabBarController: UITabBarController, UITabBarControllerDelegate {
 
@@ -17,6 +19,16 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
 
         self.delegate = self
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if Auth.auth().currentUser == nil{
+            
+            let loginViewController = self.storyboard?.instantiateViewController(identifier: "Login")
+            self.present(loginViewController!, animated: true, completion: nil)
+        }
     }
     
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
